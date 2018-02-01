@@ -17,7 +17,6 @@
             $tabQteEltsForfait=lireDonneePost("txtEltsForfait", "");
             $moisSaisi=lireDonnee("lstMois", "");
             $utilSaisi=lireDonnee("lstUtil", "");
-            $idEtat=lireDonnee("");
             $etape=lireDonneePost("etape","");
             $etapeSaisie=lireDonneePost("etapeSaisie","");
             $etapeGet =lireDonnee("etapeGet","");
@@ -47,8 +46,8 @@
     }
     else { // mise à jour des quantités des éléments forfaitisés
         modifierEltsForfait($idConnexion, $moisSaisi, $utilSaisi ,$tabQteEltsForfait);
-        validerEltsForfait($idConnexion, $moisSaisi, $utilSaisi, $idEtat);
-        echo validerEltsForfait($idConnexion, $moisSaisi, $utilSaisi, $idEtat);
+        validerEltsForfait($idConnexion, $moisSaisi, $utilSaisi);
+        echo validerEltsForfait($idConnexion, $moisSaisi, $utilSaisi);
         $etape = "validerConsult";
     }
   }if ($etapeGet == "validerSuppressionLigneHF") {
@@ -94,7 +93,7 @@
                  $annee = substr($mois,0,4);
           ?>
           <option value="<?php echo $mois; ?>"<?php if ($moisSaisi == $mois) { ?> 
-                  selected=""<?php } ?>><?php echo obtenirLibelleMois($noMois). " " .$annee ?></option>
+                  selected=""<?php } ?>><?php echo obtenirLibelleMois(intval(substr($moisSaisi,4,2))) . " " . substr($moisSaisi,0,4); ?></option>
           <?php
                   $lgMois = mysqli_fetch_assoc($idJeuMois);
               }

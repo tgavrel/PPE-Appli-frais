@@ -101,16 +101,6 @@
           }
           else {
     ?>
-    <h3>Fiche de frais du mois de <?php echo obtenirLibelleMois(intval(substr($moisSaisi,4,2))) . " " . substr($moisSaisi,0,4); ?> :
-    <div class="encadre">
-
-      <table class="listeLegere">
-               <tr>
-                  <th class="date">Date</th>
-                  <th class="libelle">Libellé</th>
-                  <th class="montant">Montant</th>
-
-               </tr>
   <?php
               // demande de la requête pour obtenir la liste des éléments hors
               // forfait du visiteur connecté pour le mois demandé
@@ -120,18 +110,27 @@
               // parcours des éléments hors forfait
               while ( is_array($lgEltHorsForfait) ) {
               ?>
-                  <tr>
+        <h3>Fiche de frais du mois de <?php echo obtenirLibelleMois(intval(substr($moisSaisi,4,2))) . " " . substr($moisSaisi,0,4); ?> :
+    <div class="encadre">
+                        <table class="listeLegere">
+               <tr>
+                  <th class="date">Date</th>
+                  <th class="libelle">Libellé</th>
+                  <th class="montant">Montant</th>
+
+               </tr>                  <tr>
                      <td><?php echo $lgEltHorsForfait["date"] ; ?></td>
                      <td><?php echo filtrerChainePourNavig($lgEltHorsForfait["libelle"]) ; ?></td>
                      <td><?php echo $lgEltHorsForfait["montant"] ; ?></td>
                   </tr>
+
+      </table>
+
               <?php
                   $lgEltHorsForfait = mysqli_fetch_assoc($idJeuEltsHorsForfait);
               }
               mysqli_free_result($idJeuEltsHorsForfait);
     ?>
-      </table>
-
   </div>
           
         </div>

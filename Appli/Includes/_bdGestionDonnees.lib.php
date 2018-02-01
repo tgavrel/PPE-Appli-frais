@@ -327,9 +327,9 @@ function modifierEltsForfait($idCnx, $unMois, $unIdVisiteur, $desEltsForfait) {
     }
 }
 
-function validerEltsForfait($idCnx, $unMois, $unIdVisiteur, $idEtat) {
-  $mois = date("Y-m-d");
-  $requete = "update fichefrais set idEtat = '". $idEtat ."' and dateModif = '". $mois ."'
+function validerEltsForfait($idCnx, $unMois, $unIdVisiteur) {
+  $unMois = date("Y-m-d");
+  $requete = "UPDATE FicheFrais set idEtat = 'VA' and dateModif = '". $unMois ."'
                where idVisiteur = '" . $unIdVisiteur . "' and mois = '"
               . $unMois . "'";
   mysqli_query($idCnx, $requete);
