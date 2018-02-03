@@ -20,6 +20,7 @@
   $etape=lireDonneePost("etape","");
   $etapeSaisie=lireDonneePost("etapeSaisie","");
   $etapeGet =lireDonnee("etapeGet","");
+  $etapeValidation =lireDonne("validation","");
   $idLigneHF = lireDonnee("idLigneHF", "");
 ?>
 <div id="contenu">
@@ -132,7 +133,10 @@
               mysqli_free_result($idJeuEltsHorsForfait);
     ?>
   </div>
-          
+            <p style="margin-left: 550px">
+    <input  class = "btn btn-primary" name="validation" id="ok" type="submit" value="Valider" size="20"
+           title="Mettre en remboursement cette fiche de frais" />
+  </p>
         </div>
           <?php
             }

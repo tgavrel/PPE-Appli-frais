@@ -17,6 +17,8 @@
             $tabQteEltsForfait=lireDonneePost("txtEltsForfait", "");
             $moisSaisi=lireDonnee("lstMois", "");
             $utilSaisi=lireDonnee("lstUtil", "");
+            $unMois= lireDonnee("lstMois","");
+            $unIdVisiteur= lireDonnee("lstUtil","");
             $etape=lireDonneePost("etape","");
             $etapeSaisie=lireDonneePost("etapeSaisie","");
             $etapeGet =lireDonnee("etapeGet","");
@@ -45,9 +47,8 @@
         ajouterErreur($tabErreurs, "Chaque quantité doit être renseignée et numérique positive.");
     }
     else { // mise à jour des quantités des éléments forfaitisés
-        modifierEltsForfait($idConnexion, $moisSaisi, $utilSaisi ,$tabQteEltsForfait);
-        validerEltsForfait($idConnexion, $moisSaisi, $utilSaisi);
-        echo validerEltsForfait($idConnexion, $moisSaisi, $utilSaisi);
+        validerEtatFicheFrais($idConnexion, $unMois, $unIdVisiteur, 'VA');
+        echo validerEtatFicheFrais($idConnexion, $unMois, $unIdVisiteur, 'VA');
         $etape = "validerConsult";
     }
   }if ($etapeGet == "validerSuppressionLigneHF") {
@@ -93,7 +94,7 @@
                  $annee = substr($mois,0,4);
           ?>
           <option value="<?php echo $mois; ?>"<?php if ($moisSaisi == $mois) { ?> 
-                  selected=""<?php } ?>><?php echo obtenirLibelleMois(intval(substr($moisSaisi,4,2))) . " " . substr($moisSaisi,0,4); ?></option>
+                   selected="selected"<?php } ?>><?php echo obtenirLibelleMois(intval(substr($moisSaisi,4,2))) . " " . substr($moisSaisi,0,4); ?></option>
           <?php
                   $lgMois = mysqli_fetch_assoc($idJeuMois);
               }
@@ -108,7 +109,7 @@
              title="Demandez à consulter cette fiche de frais" />
     </p>
     </div>
-azazaza
+
     </form>
     <?php
     // demande et affichage des différents éléments (forfaitisés et non forfaitisés)
@@ -192,13 +193,13 @@ azazaza
               ?>
             </fieldset>
             <div class="piedForm">
-              <input class = "btn btn-primary"  id="ok" type="submit" value="Valider" size="20"
+              <input class = "btn btn-primary"  id="ok" type="submit" name="validerfiche" value="Valider" size="20"
                      title="Enregistrer les nouvelles valeurs des éléments forfaitisés" />
+
             </div>
             </form>
         </div>
-
-    <?php
+<?php
       }
     }
     ?>

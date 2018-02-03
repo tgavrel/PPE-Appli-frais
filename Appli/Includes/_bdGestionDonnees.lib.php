@@ -171,7 +171,7 @@ function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
     $dernierMois = obtenirDernierMoisSaisi($idCnx, $unIdVisiteur);
 	$laDerniereFiche = obtenirDetailFicheFrais($idCnx, $dernierMois, $unIdVisiteur);
 	if ( is_array($laDerniereFiche) && $laDerniereFiche['idEtat']=='CR'){
-		modifierEtatFicheFrais($idCnx, $dernierMois, $unIdVisiteur, 'CL');
+		validerEtatFicheFrais($idCnx, $dernierMois, $unIdVisiteur, 'VA');
 	}
     
     // ajout de la fiche de frais � l'�tat Cr��
@@ -329,7 +329,7 @@ function modifierEltsForfait($idCnx, $unMois, $unIdVisiteur, $desEltsForfait) {
 
 function validerEltsForfait($idCnx, $unMois, $unIdVisiteur) {
   $unMois = date("Y-m-d");
-  $requete = "UPDATE FicheFrais set idEtat = 'VA' and dateModif = '". $unMois ."'
+  $requete = "UPDATE FicheFrais SET idEtat = 'VA' and dateModif = '". $unMois ."'
                where idVisiteur = '" . $unIdVisiteur . "' and mois = '"
               . $unMois . "'";
   mysqli_query($idCnx, $requete);
@@ -389,11 +389,12 @@ function verifierAdminNo($idCnx, $unLogin, $unMdp) {
  * @param string $unMois mois sous la forme aaaamm
  * @return void 
  */
-function modifierEtatFicheFrais($idCnx, $unMois, $unIdVisiteur, $unEtat) {
+function validerEtatFicheFrais($idConnexion, $unMois, $unIdVisiteur, $unEtat) {
     $requete = "UPDATE FicheFrais SET idEtat = '" . $unEtat . 
                "', dateModif = now() WHERE idVisiteur ='" .
                $unIdVisiteur . "' and mois = '". $unMois . "'";
-    mysqli_query($idCnx,$requete);
+    mysqli_query($idConnexion,$requete);
+      return $requete;
 }             
 
 function SelectMois($current_month, $current_year, $month, $sSelect, $sOption, $selectedDate = null)
@@ -430,4 +431,11 @@ $month = array(
     10=> 'Octobre',
     11 => 'Novembre',
     12 => 'Décembre'
-);
+); 
+
+function obtenirIdEtatFicheFrais($idConnexion, $unMois, $unIdVisiteur) {
+    $unMois = filtrerChainePourBD($unMois);
+    $requete= "SELECT idEtat FROM FicheFrais WHERE idVisiteur = '" . $unIdVisiteur . "' and mois = '"
+              . $unMois . "'";
+  return $requete;
+}
