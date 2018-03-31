@@ -6,7 +6,6 @@
  */
   $repInclude = './Includes/';
   require($repInclude . "_init.inc.php");
-
   // page inaccessible si visiteur non connecté
   if ( ! estVisiteurConnecte() )
   {
@@ -20,7 +19,7 @@
   $etape=lireDonneePost("etape","");
   $etapeSaisie=lireDonneePost("etapeSaisie","");
   $etapeGet =lireDonnee("etapeGet","");
-  $etapeValidation =lireDonne("validation","");
+  $etapeValidation =lireDonnee("validation","");
   $idLigneHF = lireDonnee("idLigneHF", "");
 ?>
 <div id="contenu">
